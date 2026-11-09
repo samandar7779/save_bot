@@ -1,0 +1,25 @@
+services:
+  save-bot:
+    build: .
+    image: save-bot:latest
+    container_name: save-bot
+    restart: unless-stopped
+    init: true
+    env_file:
+      - .env
+    environment:
+      # Konteyner ichidagi yo'l (volume bilan mos bo'lishi shart).
+      DOWNLOAD_DIR: /app/downloads
+    volumes:
+      - ./downloads:/app/downloads
+      # Instagram cookies ishlatmoqchi bo'lsangiz:
+      # 1) cookies.txt faylini loyiha papkasiga qo'ying
+      # 2) .env da COOKIES_FILE=/app/cookies.txt qilib yozing
+      # 3) quyidagi qatorni oching:
+      # - ./cookies.txt:/app/cookies.txt:ro
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

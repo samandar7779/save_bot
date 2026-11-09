@@ -1,0 +1,7 @@
+[Unit]
+Description=Update yt-dlp for save-bot
+Documentation=file:///opt/save-bot/README.md
+
+[Service]
+Type=oneshot
+ExecStart=/opt/save-bot/deploy/update-ytdlp.sh

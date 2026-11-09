@@ -1,0 +1,33 @@
+[Unit]
+Description=Telegram Save Bot (Instagram / YouTube)
+Documentation=file:///opt/save-bot/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=savebot
+Group=savebot
+WorkingDirectory=/opt/save-bot
+
+# .env faylidan BOT_TOKEN, COOKIES_FILE va boshqa o'zgaruvchilar o'qiladi.
+EnvironmentFile=/opt/save-bot/.env
+Environment=PYTHONUNBUFFERED=1
+
+ExecStart=/opt/save-bot/.venv/bin/python -u /opt/save-bot/bot.py
+
+# Qulasa 5 soniyadan keyin qayta ishga tushadi.
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=30
+
+# --- Xavfsizlik (systemd sandbox) ---
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/opt/save-bot/downloads
+
+[Install]
+WantedBy=multi-user.target

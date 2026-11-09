@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily yt-dlp update for save-bot
+
+[Timer]
+# Har kuni 04:00 da (server vaqti). RandomizedDelaySec yukni taqsimlaydi.
+OnCalendar=*-*-* 04:00:00
+RandomizedDelaySec=30m
+Persistent=true
+
+[Install]
+WantedBy=timers.target
